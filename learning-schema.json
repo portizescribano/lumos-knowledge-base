@@ -1,0 +1,319 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lumos Project Learning Entry",
+  "description": "Schema for capturing learnings from Lumos Framework implementations",
+  "type": "object",
+  "required": ["id", "date", "category", "title", "problem", "solution", "outcome"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (e.g., LEARN-2025-001)",
+      "pattern": "^LEARN-[0-9]{4}-[0-9]{3}$"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date learning was captured (YYYY-MM-DD)"
+    },
+    "project": {
+      "type": "object",
+      "description": "Optional project context information",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Project name"
+        },
+        "id": {
+          "type": "string",
+          "description": "Project identifier"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Webflow project share link"
+        }
+      }
+    },
+    "category": {
+      "type": "string",
+      "description": "Primary category for this learning",
+      "enum": [
+        "component-design",
+        "cms-integration",
+        "data-flow",
+        "responsive-design",
+        "interactions",
+        "troubleshooting",
+        "performance",
+        "accessibility",
+        "class-naming",
+        "variables",
+        "edge-case",
+        "best-practice"
+      ]
+    },
+    "subcategory": {
+      "type": "array",
+      "description": "More specific categorization tags",
+      "items": {
+        "type": "string",
+        "enum": [
+          "collection-list",
+          "nested-components",
+          "dynamic-linking",
+          "slider",
+          "tabs",
+          "accordion",
+          "filtering",
+          "grid-layout",
+          "flexbox",
+          "typography",
+          "color-themes",
+          "property-binding",
+          "slot-usage"
+        ]
+      }
+    },
+    "title": {
+      "type": "string",
+      "description": "Brief descriptive title (e.g., 'Collection List Dynamic Linking in Sliders')",
+      "maxLength": 100
+    },
+    "problem": {
+      "type": "object",
+      "required": ["description"],
+      "description": "Description of the issue or challenge encountered",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Clear description of what issue was encountered"
+        },
+        "symptoms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Observable behaviors or error messages"
+        },
+        "context": {
+          "type": "string",
+          "description": "When/where this problem occurs"
+        }
+      }
+    },
+    "rootCause": {
+      "type": "string",
+      "description": "Technical explanation of why the problem occurred"
+    },
+    "solution": {
+      "type": "object",
+      "required": ["approach", "implementation"],
+      "description": "How the problem was solved",
+      "properties": {
+        "approach": {
+          "type": "string",
+          "description": "High-level solution strategy"
+        },
+        "implementation": {
+          "type": "object",
+          "description": "Detailed implementation steps and code",
+          "properties": {
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Step-by-step implementation instructions"
+            },
+            "code": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "language": {
+                    "type": "string",
+                    "description": "Programming language (html, css, javascript, etc.)"
+                  },
+                  "snippet": {
+                    "type": "string",
+                    "description": "Code example"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "What this code does"
+                  }
+                }
+              },
+              "description": "Code examples demonstrating the solution"
+            },
+            "configuration": {
+              "type": "object",
+              "description": "Component properties, classes, or settings to apply"
+            }
+          }
+        },
+        "frameworkAlignment": {
+          "type": "string",
+          "description": "How this solution follows Lumos framework principles"
+        }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "required": ["success"],
+      "description": "Results after implementing the solution",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "description": "Whether the solution worked"
+        },
+        "results": {
+          "type": "string",
+          "description": "What happened after implementation"
+        },
+        "metrics": {
+          "type": "object",
+          "description": "Measurable impact of the solution",
+          "properties": {
+            "performanceImpact": {
+              "type": "string",
+              "description": "Impact on site performance"
+            },
+            "developmentTime": {
+              "type": "string",
+              "description": "Time required to implement"
+            },
+            "maintainability": {
+              "type": "string",
+              "enum": ["high", "medium", "low"],
+              "description": "How maintainable is this solution"
+            }
+          }
+        }
+      }
+    },
+    "alternatives": {
+      "type": "array",
+      "description": "Other approaches that were considered",
+      "items": {
+        "type": "object",
+        "properties": {
+          "approach": {
+            "type": "string",
+            "description": "Alternative solution approach"
+          },
+          "pros": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Advantages of this approach"
+          },
+          "cons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Disadvantages of this approach"
+          },
+          "whyNotChosen": {
+            "type": "string",
+            "description": "Reason for not using this approach"
+          }
+        }
+      }
+    },
+    "frameworkReferences": {
+      "type": "array",
+      "description": "Links to relevant framework documentation",
+      "items": {
+        "type": "object",
+        "properties": {
+          "section": {
+            "type": "string",
+            "description": "Framework documentation section (e.g., 'Components')"
+          },
+          "concept": {
+            "type": "string",
+            "description": "Specific concept referenced"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to documentation"
+          }
+        }
+      }
+    },
+    "reusability": {
+      "type": "object",
+      "description": "How this solution can be reused",
+      "properties": {
+        "pattern": {
+          "type": "string",
+          "description": "Extractable reusable pattern from this solution"
+        },
+        "applicableScenarios": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Scenarios where this pattern applies"
+        },
+        "template": {
+          "type": "object",
+          "description": "Ready-to-use configuration or code template"
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Searchable keywords for finding this learning"
+    },
+    "relatedLearnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of related learning entries (e.g., ['LEARN-2025-002', 'LEARN-2025-007'])"
+    },
+    "frameworkVersion": {
+      "type": "string",
+      "description": "Lumos framework version tested (e.g., 'v2.2.1')"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "verified", "outdated", "superseded"],
+      "default": "draft",
+      "description": "Status of this learning entry"
+    },
+    "updates": {
+      "type": "array",
+      "description": "History of updates to this learning entry",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "change": {
+            "type": "string",
+            "description": "What was changed"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Why it was changed"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes or observations"
+    }
+  }
+}

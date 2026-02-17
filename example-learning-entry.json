@@ -1,0 +1,161 @@
+{
+  "id": "LEARN-2025-001",
+  "date": "2025-01-20",
+  "project": {
+    "name": "Client Portfolio Site",
+    "id": "proj-123",
+    "url": "https://webflow.com/dashboard/sites/example-site"
+  },
+  "category": "cms-integration",
+  "subcategory": [
+    "collection-list",
+    "dynamic-linking",
+    "slider"
+  ],
+  "title": "Collection List Dynamic Links Break in Wrapped Components",
+  "problem": {
+    "description": "CMS dynamic links inside Collection List items stopped working when Collection List was wrapped in a component without proper property exposure",
+    "symptoms": [
+      "Dynamic links show placeholder '#' instead of CMS field data",
+      "Child components don't receive CMS context",
+      "Slider items show identical content instead of unique CMS data",
+      "Link bindings appear correct in Designer but don't work on published site"
+    ],
+    "context": "Occurs when Collection List is placed inside a component slot without exposing the Collection Item as a component property. Common when creating custom slider or tab components that wrap CMS lists."
+  },
+  "rootCause": "Webflow components create an isolation boundary. When Collection List is wrapped in a component without exposing the Collection Item as a component property, child components lose access to the CMS data context. The component wrapper breaks the data flow chain from Collection List → Collection Item → Child Components.",
+  "solution": {
+    "approach": "Revert to Lumos default Clickable component pattern which maintains CMS data flow through proper property exposure",
+    "implementation": {
+      "steps": [
+        "Remove custom component wrapper around Collection List",
+        "Use Lumos Clickable component as designed in framework",
+        "Ensure Collection Item is exposed as component property at wrapper level",
+        "Bind child component properties to CMS fields",
+        "Verify dynamic links reference CMS link fields correctly",
+        "Test with multiple CMS items to confirm unique content per item"
+      ],
+      "code": [
+        {
+          "language": "html",
+          "snippet": "Collection List\n└─ Collection Item\n   └─ Clickable Component (exposes Collection Item property)\n      └─ Card Blog Component\n         ├─ Image (bound to CMS featured image)\n         ├─ Heading (bound to CMS post title)\n         ├─ Paragraph (bound to CMS excerpt)\n         └─ Link (inherits from Clickable)",
+          "description": "Correct structure using Clickable component"
+        }
+      ],
+      "configuration": {
+        "component": "Clickable (Lumos default)",
+        "properties": {
+          "collectionItem": "exposed as component property",
+          "linkField": "bound to CMS link field (e.g., blog post link)",
+          "childComponents": "receive CMS context automatically"
+        },
+        "warnings": [
+          "Do NOT wrap Collection List in custom component without exposing Collection Item",
+          "Do NOT use third-party solutions like Finsweet Attributes when framework has native solution"
+        ]
+      }
+    },
+    "frameworkAlignment": "Lumos Clickable component is specifically designed to handle this exact data flow pattern. Using framework defaults instead of custom wrappers prevents structural integrity issues and maintains proper CMS context propagation. This is a core framework pattern that should never be replaced with workarounds."
+  },
+  "outcome": {
+    "success": true,
+    "results": "Dynamic links fully restored and working correctly. CMS data flows properly to all child components. Slider displays unique content for each CMS item. Links navigate to correct CMS item pages. Solution is maintainable and follows framework best practices.",
+    "metrics": {
+      "performanceImpact": "no change - pure structural fix",
+      "developmentTime": "30 minutes to revert structure and verify",
+      "maintainability": "high - uses framework default pattern"
+    }
+  },
+  "alternatives": [
+    {
+      "approach": "Use Finsweet Attributes for dynamic linking",
+      "pros": [
+        "Familiar tool for developers experienced with Finsweet",
+        "Quick to implement if already using Finsweet",
+        "Works around Webflow component limitations"
+      ],
+      "cons": [
+        "Third-party dependency (external script required)",
+        "Framework already has native solution (Clickable component)",
+        "Adds unnecessary code and complexity",
+        "Violates Lumos principle of framework-native solutions",
+        "Requires learning additional tool syntax"
+      ],
+      "whyNotChosen": "Lumos framework already solves this problem with the Clickable component - there is no need for a third-party solution. Prefer native framework patterns over external dependencies for better maintainability, performance, and alignment with framework principles."
+    },
+    {
+      "approach": "Custom JavaScript to manually bind links after page load",
+      "pros": [
+        "Complete control over link behavior",
+        "Can add custom logic to links"
+      ],
+      "cons": [
+        "Requires custom code for solved problem",
+        "Adds complexity and maintenance burden",
+        "Slower (runs after page load)",
+        "Framework solution is cleaner and native"
+      ],
+      "whyNotChosen": "Over-engineered solution for a problem the framework already solves structurally."
+    }
+  ],
+  "frameworkReferences": [
+    {
+      "section": "Components",
+      "concept": "Clickable Component - CMS Integration Pattern",
+      "url": "https://lumos.timothyricks.com/components"
+    },
+    {
+      "section": "CMS Integration",
+      "concept": "Collection List Property Exposure",
+      "url": "https://lumos.timothyricks.com/cms-components"
+    },
+    {
+      "section": "Components Architecture",
+      "concept": "Component Data Flow and Isolation",
+      "url": "https://lumos.timothyricks.com/components"
+    }
+  ],
+  "reusability": {
+    "pattern": "ALWAYS use Lumos default Clickable component for CMS Collection Items that need dynamic linking. NEVER wrap Collection Lists in components without exposing Collection Item property. This pattern applies to ALL CMS-driven clickable elements.",
+    "applicableScenarios": [
+      "Blog post cards with CMS links",
+      "Product cards in sliders or grids",
+      "Team member cards with bio links",
+      "Portfolio item collections",
+      "Case study cards",
+      "Testimonial cards with source links",
+      "Any CMS collection where items should be clickable"
+    ],
+    "template": {
+      "structure": "Collection List → Collection Item (with Clickable component) → Child components with CMS bindings",
+      "requiredProperties": [
+        "Collection Item exposure in wrapper component",
+        "Link field binding to CMS link field",
+        "Child component properties bound to CMS fields"
+      ],
+      "implementation": "Use Clickable component from Lumos framework, ensure Collection Item property is exposed, bind link to CMS link field, add child components inside Clickable slot"
+    }
+  },
+  "tags": [
+    "cms",
+    "collection-list",
+    "dynamic-linking",
+    "components",
+    "clickable",
+    "data-flow",
+    "slider",
+    "troubleshooting",
+    "structural-integrity"
+  ],
+  "relatedLearnings": [],
+  "frameworkVersion": "v2.2.1",
+  "status": "verified",
+  "updates": [
+    {
+      "date": "2025-01-20",
+      "change": "Initial documentation of solution",
+      "reason": "Captured successful resolution of critical CMS integration issue"
+    }
+  ],
+  "notes": "This is one of the most common mistakes when working with CMS and components in Lumos/Webflow. The Clickable component pattern is fundamental to CMS integration and should be the first thing checked when dynamic links aren't working. Consider adding this to troubleshooting quick reference."
+}
