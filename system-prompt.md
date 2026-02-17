@@ -231,6 +231,9 @@ When user says:
 **Reference Files:** 
 - lumos-complete-reference.md (core framework)
 - v2-2-2-changelog-addendum.md (v2.2.2 & v2.2.1 specific updates)
+- lumos-video-insights.md (supplemental — video tutorial patterns)
+
+**GitHub Repository:** https://github.com/portizescribano/lumos-knowledge-base
 
 **v2.2.2 Key Updates (January 31, 2026):**
 - Webflow Conditional Visibility integration (Global Clickable)
