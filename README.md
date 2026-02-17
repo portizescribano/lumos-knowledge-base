@@ -110,7 +110,6 @@ This is a complete system that turns Claude AI into your permanent Lumos Framewo
 ## How It Works
 
 ### Knowledge Base
-```
 Claude Project Knowledge
 ├── Core Framework Documentation
 │   └── lumos-complete-reference.md
@@ -118,10 +117,8 @@ Claude Project Knowledge
 │   └── Defines Claude's Lumos expert role
 └── Project Learnings (you add these)
     └── learn-YYYY-NNN-description.json
-```
-
-### Daily Workflow
-```
+    
+Daily Workflow
 1. You start building Webflow project
 2. Claude guides implementation (using framework knowledge)
 3. You encounter challenge
@@ -130,13 +127,9 @@ Claude Project Knowledge
 6. Claude creates JSON learning entry
 7. You save to knowledge base
 8. Future projects benefit automatically
-```
 
-### Learning Capture
-```
+9.Learning Capture
 Problem → Solution → Documentation → Reusable Pattern
-```
-
 Every challenge becomes permanent knowledge.
 
 ---
@@ -322,6 +315,9 @@ Every challenge becomes permanent knowledge.
 - **Changelog:** https://lumos.timothyricks.com/changelog
 - **Starter File:** https://try.webflow.com/tricks?path=lumos-v2-beta
 - **Fluid Builder:** https://fluidbuilder.timothyricks.com/
+
+### Knowledge Base Repository
+- **GitHub:** https://github.com/portizescribano/lumos-knowledge-base
 
 ### Getting Help
 - **Ask Claude** in your Lumos Project
